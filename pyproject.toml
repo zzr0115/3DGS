@@ -1,0 +1,81 @@
+[project]
+name = "gaussian_splatting"
+version = "1.0.0"
+description = "Gaussian Splatting"
+readme = "README.md"
+requires-python = ">=3.10.0"
+
+dependencies = [
+    "plyfile",
+    "tqdm",
+    "opencv-python",
+    "joblib",
+    "setuptools",
+]
+
+
+[project.optional-dependencies]
+train = [
+  "diff-gaussian-rasterization",
+  "simple-knn",                  
+  "fused-ssim",                 
+]
+cpu = [
+  "torch>=2.7.0",
+  "torchvision>=0.22.0",
+]
+cu118 = [
+  "torch>=2.7.0",
+  "torchvision>=0.22.0",
+]
+cu128 = [
+  "torch>=2.7.0",
+  "torchvision>=0.22.0",
+]
+
+[[tool.uv.index]] 
+name = "qinghua" 
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+
+[tool.uv]
+conflicts = [
+  [
+    { extra = "cpu" },
+    { extra = "cu118" },
+    { extra = "cu128" },
+  ],
+]
+
+[tool.uv.sources]
+diff-gaussian-rasterization = { path = "dist/diff_gaussian_rasterization-0.0.0-cp310-cp310-linux_x86_64.whl" }
+simple-knn = { path = "dist/simple_knn-0.0.0-cp310-cp310-linux_x86_64.whl" }
+fused-ssim = { path = "dist/fused_ssim-0.0.0-cp310-cp310-linux_x86_64.whl" }
+
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu118", extra = "cu118" },
+  { index = "pytorch-cu128", extra = "cu128" },
+]
+torchvision = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu118", extra = "cu118" },
+  { index = "pytorch-cu128", extra = "cu128" },
+]
+
+[tool.uv.workspace]
+members = [
+    "gaussian-splatting",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
