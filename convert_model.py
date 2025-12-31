@@ -26,6 +26,10 @@ if not args.ply and not args.txt:
     print("No conversion format specified. Please use --ply or --txt.")
     exit(0)
 
+output_model_path = os.path.join(input_model_path, "backup")
+# Ensure the backup directory exists
+os.makedirs(output_model_path, exist_ok=True)
+
 if args.ply:
     print("Converting to PLY...")
     # PLY output requires a specific file path
